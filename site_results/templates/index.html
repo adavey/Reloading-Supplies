@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Reloading Supplies</h1>
+  <p>Welcome to my site, a website developed to check websites that sell reloading supplies for availability of select products.</p>
+  <h2>Dynamic content</h2>
+  <p>The site has the following record counts:</p>
+  <ul>
+    <li><strong>Manufactures:</strong> {{ num_manufactures }}</li>
+    <li><strong>Products:</strong> {{ num_products }}</li>
+    <li><strong>Websites:</strong> {{ num_websites }}</li>
+    <li><strong>Web Products:</strong> {{ num_webProducts }}</li>
+  </ul>
+{% endblock %}
