@@ -23,7 +23,7 @@ urlpatterns = [
 from django.urls import include
 
 urlpatterns += [
-    path('results/', include('crawl_sites.urls')),
+    path('results/', include('site_results.urls')),
 ]
 
 #Add URL maps to redirect the base URL to our application

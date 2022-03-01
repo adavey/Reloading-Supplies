@@ -1,4 +1,4 @@
-from crawl_sites.models import Manufacturer, Website, Product, Website_Product
+from site_results.models import Manufacturer, Website, Product, Website_Product
 from django.contrib import admin
 
 class ProductAdmin(admin.ModelAdmin):

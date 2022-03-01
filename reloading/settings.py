@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crawl_sites.apps.CrawlSitesConfig',
+    'site_results.apps.SiteResultsConfig',
 ]
 
 MIDDLEWARE = [
