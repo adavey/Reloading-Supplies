@@ -1,3 +1,5 @@
+from cgitb import html
+from numpy import product
 from requests import get
 from bs4 import BeautifulSoup
 import psycopg2
@@ -5,6 +7,7 @@ from configparser import ConfigParser
 
 class WebSite():
     name = ''
+    print_in_stock_only = True
 
     def __init__(self):
         params = self.config()
@@ -49,7 +52,11 @@ class WebSite():
             available_text = 'In Stock'
         else:
             available_text = 'Out of Stock'
-        print('{0}: {1} {2} ({3}):  {4}'.format(self.name, self.manufacturer, self.product, self.size, available_text))
+
+        if available_text == 'In Stock' and self.print_in_stock_only == True:
+            print('{0}: {1} {2} ({3}):  {4}'.format(self.name, self.manufacturer, self.product, self.size, available_text))
+        elif self.print_in_stock_only == False:
+            print('{0}: {1} {2} ({3}):  {4}'.format(self.name, self.manufacturer, self.product, self.size, available_text))
 
     def get_products(self):
         cur = self.conn.cursor()
@@ -75,6 +82,7 @@ class BallisticProducts(WebSite):
 
     def __init__(self):
         super().__init__()
+        # self.print_in_stock_only = False
 
     def lookup_product(self):
         self.is_available = False
@@ -95,6 +103,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
 import logging
+import sys
 
 class PrecisionReloading(WebSite):
     name = 'Precision Reloading'
@@ -103,12 +112,12 @@ class PrecisionReloading(WebSite):
         super().__init__()
 
         self.opts = webdriver.ChromeOptions()
-        self.opts.headless =True
-        #opts.add_argument('--log_level=0')
-        #opts.add_experimental_option("excludeSwitches", ["enable-logging"])
+        self.opts.headless =True        
         
         # Workaround to suppress initial WebDriver Manager messages to console as specifiying log level
         # as an argument or via constructor parameter to ChromeDriverManager did not work.
+        #opts.add_argument('--log_level=0')
+        #opts.add_experimental_option("excludeSwitches", ["enable-logging"])
         os.environ["WDM_LOG_LEVEL"] = str(logging.WARNING)
 
         self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.opts)
@@ -121,22 +130,39 @@ class PrecisionReloading(WebSite):
         if text.lower().find('in stock') != -1:
             self.is_available = True
 
-class SydasOutdoorCenter(WebSite):
+
+class ShydasOutdoorCenter(WebSite):
     name = 'Shyda\'s Outdoor Center'
 
     def __init__(self):
         super().__init__()
 
-        # Add header with user-agent in order to receive content.
-        self.headers = {'user-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:92.0) Gecko/20100101 Firefox/92.0'}
+        self.opts = webdriver.ChromeOptions()
+        self.opts.headless =True        
+        
+        # Workaround to suppress initial WebDriver Manager messages to console as specifiying log level
+        # as an argument or via constructor parameter to ChromeDriverManager did not work.
+        #opts.add_argument('--log_level=0')
+        #opts.add_experimental_option("excludeSwitches", ["enable-logging"])
+        os.environ["WDM_LOG_LEVEL"] = str(logging.WARNING)
+
+        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.opts)
 
     def lookup_product(self):
         self.is_available = False
-        response = get(self.url,headers=self.headers)
-        html_soup = BeautifulSoup(response.text, 'html.parser')
+        # print(self.url)
+        self.driver.get(self.url)
+        html_soup = BeautifulSoup(self.driver.page_source,  'html.parser')
         product_info = html_soup.find('p',class_ = 'availability in-stock')
         if product_info is not None:
-            self.is_available = True
+            # print(product_info.text)
+            if product_info.text.lower().find('in stock') != -1:
+                self.is_available = True
+            else:
+                self.is_available = False
+        else:
+            self.is_available = False
+                         
         
 
 class Recobs(WebSite):

@@ -10,13 +10,21 @@ class ProductAdmin(admin.ModelAdmin):
 
 class Website_ProductAdmin(admin.ModelAdmin):
     model = Website_Product
-    list_display=('website_name','product_name', 'url')
+    list_display=('website_name', 'manufacturer_name', 'product_name', 'product_size', 'url')
 
     def website_name (self, instance):
         return instance.website.name
 
     def product_name (self, instance):
-        return instance.product.name        
+        return instance.product.name   
+
+    def manufacturer_name (self, instance):
+        return instance.product.manufacturer.name
+
+    def product_size (self, instance):
+        return instance.product.size
+
+     
 
 # Register your models here.
 admin.site.register(Manufacturer)

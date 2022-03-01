@@ -29,7 +29,7 @@ class Product(models.Model):
 
     class Meta:
         db_table = 'product'
-        ordering = ['name']
+        ordering = ['manufacturer', 'name', 'size']
 
     def __str__(self):
         return f'{self.name} ({self.size})'
@@ -41,6 +41,16 @@ class Website_Product(models.Model):
 
     class Meta:
         db_table = 'website_product'
+        ordering = ['website', 'product']
 
     def __str__(self):
         return self.url
+
+class Check_Web_Product_Log(models.Model):
+    web_product = models.ForeignKey(Website_Product, null=False, blank=False, on_delete=models.CASCADE)
+    is_available = models.BooleanField(null=False, blank=False)
+    checked_at = models.DateTimeField(auto_now_add=True, null=False, blank=False)
+    pulled_html = models.CharField(max_length=2000,null=True, blank=True)
+
+    class Meta:
+        db_table = 'check_web_product_log'
