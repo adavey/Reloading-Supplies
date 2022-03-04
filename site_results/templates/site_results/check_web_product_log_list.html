@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Results List</h1>
+  {% if check_web_product_log_list %}
+
+    <table>
+      <tr><th>Last Checked</th><th>Web/Product</th><th>In Stock</th></tr>
+    {% for result in check_web_product_log_list %}
+      <tr>
+        <td>{{ result.checked_at|date:'Y-m-d H:i'}}</td>
+        <td><a href="{{result.web_product}}" target="_blank">{{result.web_product.website.name}} - {{result.web_product.product.manufacturer.name}} {{result.web_product.product.name}} ({{result.web_product.product.size}})</a></td>
+        <td >{{result.is_available}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+
+  {% else %}
+    <p>There are no results in the databases.</p>
+  {% endif %}
+{% endblock %}
