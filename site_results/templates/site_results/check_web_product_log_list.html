@@ -10,12 +10,16 @@
       <tr>
         <td>{{ result.checked_at|date:'Y-m-d H:i'}}</td>
         <td><a href="{{result.web_product}}" target="_blank">{{result.web_product.website.name}} - {{result.web_product.product.manufacturer.name}} {{result.web_product.product.name}} ({{result.web_product.product.size}})</a></td>
-        <td >{{result.is_available}}</td>
+        {% if result.is_available %}
+          <td >Yes</td>
+        {% else %}
+          <td>No</td>
+        {% endif %}
       </tr>
     {% endfor %}
     </table>
 
   {% else %}
-    <p>There are no results in the databases.</p>
+    <p>There are no results in the database.</p>
   {% endif %}
 {% endblock %}

@@ -23,13 +23,13 @@ urlpatterns = [
 from django.urls import include
 
 urlpatterns += [
-    path('results/', include('site_results.urls')),
+    path('reloading/', include('site_results.urls')),
 ]
 
 #Add URL maps to redirect the base URL to our application
 from django.views.generic import RedirectView
 urlpatterns += [
-    path('', RedirectView.as_view(url='results/', permanent=True)),
+    path('', RedirectView.as_view(url='reloading/', permanent=True)),
 ]
 
 # Use static() to add url mapping to serve static files during development (only)
