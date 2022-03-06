@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Products List</h1>
+  {% if website_product_list %}
+
+    <table>
+      <tr><th>Web/Product</th><th>Last Seen</th></tr>
+    {% for result in website_product_list %}
+      <tr>
+        <td><a href="{{result.url}}" target="_blank">{{result.website__name}} - {{result.product__manufacturer__name}} {{result.product__name}} ({{result.product__size}})</a></td>
+      <td>{{ result.last_seen|date:'Y-m-d H:i'}}</td>
+    {% endfor %}
+    </table>
+
+  {% else %}
+    <p>There are no results in the database.</p>
+  {% endif %}
+{% endblock %}

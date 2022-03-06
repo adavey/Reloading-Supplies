@@ -13,7 +13,7 @@ class WebSite():
         params = self.config()
         self.conn = psycopg2.connect(**params)
         
-    def config (self, filename='database.ini', section='postgresql'):
+    def config (self, filename='./database.ini', section='postgresql'):
         parser = ConfigParser()
         parser.read(filename)
         db={}
