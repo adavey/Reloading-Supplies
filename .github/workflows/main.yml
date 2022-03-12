@@ -24,6 +24,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: adavey604/reloading
+          tags: |
+            type=semver,pattern={{version}}
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -34,3 +42,8 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          
+      # Debug why tags isn't working
+      - name: debug tags
+        run: |
+          echo Tags: ${{ steps.meta.outputs.tags }}
