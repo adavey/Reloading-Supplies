@@ -30,7 +30,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: adavey604/reloading
-          tags: |
+          tags: 
             type=semver,pattern={{major}}.{{minor}.{patch}}
 
       # Runs a single command using the runners shell
