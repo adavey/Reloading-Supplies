@@ -1,7 +1,9 @@
 database.ini
 .vscode
 __pycache__
+*.pyc
 .env
-env
+venv
+
 
 

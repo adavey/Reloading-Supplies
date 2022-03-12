@@ -6,7 +6,7 @@ import psycopg2
 from configparser import ConfigParser
 
 class WebSite():
-    name = ''
+    name = 'WebSite'
     print_in_stock_only = True
 
     def __init__(self):

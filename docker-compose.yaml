@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  web:
+    container_name: reloading_app
+    image: adavey/reloading:1.0.2
+    network_mode: host
+    env_file: 
+      - .env

@@ -1,11 +1,19 @@
 FROM python:3.7-buster
 
 ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-RUN mkdir -p /app
-COPY . /app
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt \
+    && rm -rf /tmp/requirements.txt
+
+RUN useradd -U app_user \
+    && install -d -m 0755 -o app_user -g app_user /app
+
 WORKDIR /app
-RUN pip install -r requirements.txt
+USER app_user:app_user
 
-CMD ["python","manage.py","runserver","0.0.0.0:8001"]
+COPY --chown=app_user:app_user . .
+
+CMD ["python","manage.py","runserver","--insecure","0.0.0.0:8000"]
 
