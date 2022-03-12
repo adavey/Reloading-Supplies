@@ -34,10 +34,10 @@ jobs:
         with:
           images: adavey604/reloading
           tag-semver: |
-           {{raw}}
+           {{version}}
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Git ref ${{github.ref}}
+        run: echo Git ref ${{github.ref.tags}}
           
       # Debug why tags isn't working
       - name: debug tags
