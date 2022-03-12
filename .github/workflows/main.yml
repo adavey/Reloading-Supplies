@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ main, test-action ]
     tags:
       - 'v.*.*.*'
   pull_request:
@@ -33,6 +33,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: adavey604/reloading
+          tag-custom: latest
           tag-semver: |
            {{version}}
       # Runs a single command using the runners shell
