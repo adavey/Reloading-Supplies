@@ -39,7 +39,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Git ref: ${{github.ref}}
+        run: echo Git ref ${{github.ref}}
           
       # Debug why tags isn't working
       - name: debug tags
