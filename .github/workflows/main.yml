@@ -31,7 +31,10 @@ jobs:
         with:
           images: adavey604/reloading
           tags: |
-            type=semver,pattern={{major}.{minor}.{patch}}
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
