@@ -32,8 +32,10 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: adavey604/reloading
-          tags: 
+          tags: |
             type=semver,pattern={{major}}.{{minor}.{patch}}
+            type=ref,event=pr
+            type=ref,event=branch
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
