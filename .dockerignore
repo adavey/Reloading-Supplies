@@ -2,6 +2,7 @@
 venv/
 .gitignore
 .git/
+.github/
 *.pyc
 .cache
 __pycache__
@@ -10,3 +11,4 @@ database.ini
 Dockerfile
 .dockerignore
 docker-compose.yaml
+
