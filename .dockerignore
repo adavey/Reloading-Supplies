@@ -1,4 +1,4 @@
-#.env
+.env
 venv/
 .gitignore
 .git/
@@ -9,3 +9,4 @@ database.ini
 .vscode
 Dockerfile
 .dockerignore
+docker-compose.yaml
