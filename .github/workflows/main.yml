@@ -29,14 +29,12 @@ jobs:
       
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v3
+        # uses: docker/metadata-action@v3
+        uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: adavey604/reloading
-          tags: |
-            type=semver,pattern={{major}}.{{minor}.{patch}}
-            type=ref,event=pr
-            type=ref,event=branch
-
+          tag-semver: |
+           {{raw}}
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Git ref ${{github.ref}}
