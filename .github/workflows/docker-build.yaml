@@ -5,10 +5,14 @@ name: Docker Build and Push
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-#  push:
+  push:
 #    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - v*.*.*
+
+#  pull_request:
+#    branches: [ main ]
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -41,8 +45,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: adavey604/reloading
-          tags: |
-            type=semver,pattern={{version}}
+          tags: 
+            type=ref,event=tag
           
       -
         name: Build and push Docker Image
