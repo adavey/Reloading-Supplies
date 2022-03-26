@@ -125,10 +125,15 @@ class PrecisionReloading(WebSite):
     def lookup_product(self):
         self.is_available = False
         self.driver.get(self.url)
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//span[@class='prodStatus']")))
-        text = self.driver.find_element_by_class_name('prodStatus').text 
-        if text.lower().find('in stock') != -1:
-            self.is_available = True
+        try:
+            WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//span[@class='prodStatus']")))
+            text = self.driver.find_element_by_class_name('prodStatus').text 
+            if text.lower().find('in stock') != -1:
+                self.is_available = True
+        except Exception as e:
+            print(e)
+            self.is_available = False
+        
 
 
 class ShydasOutdoorCenter(WebSite):
